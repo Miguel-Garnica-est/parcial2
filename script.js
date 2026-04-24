@@ -57,7 +57,8 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
 
 /**
  * Calcula los vértices de un polígono regular.
- * @param {number} centerX, centerY - Centro
+ * @param {number} centerX - Centro en x
+ * @param {number} centerY - Centro en y
  * @param {number} sides - Número de lados
  * @param {number} radius - Radio
  * @returns {Array} Arreglo de objetos {x, y}
@@ -65,8 +66,11 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
 function getPolygonVertices(centerX, centerY, sides, radius) {
     // Desarrollo del estudiante (Uso de Math.sin/Math.cos y retorno de datos)
 }
-function aleatorio() {
-    sides = Math.floor(Math.random() * 10) + 1
+function inicio() {
+    const centerX = 250
+    const centerY = 250
+    const sides = Math.floor(Math.random() * 10) + 1
+    const radius = 150
     console.log(sides)
-    return (sides)
+    
 }
