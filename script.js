@@ -20,9 +20,40 @@ function drawPixel(ctx, x, y, color = "#000000") {
  * @param {number} x1, y1 - Coordenadas finales
  * @returns {void}
  */
-function bresenhamLine(x0, y0, x1, y1, color) {
+function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
     // Desarrollo del estudiante
-}
+    let dx = Math.abs(x1 - x0)
+    let dy = Math.abs(y1 - y0)
+    let sx = (x0 < x1) ? 1 : -1
+    let sy = (y0 < y1) ? 1 : -1
+    let err = dx - dy
+
+    
+     while (true) {
+            // Dibujar el punto actual
+            drawPixel(ctx, x0, y0, color)
+            
+            
+
+            // Condición de finalización
+            if (x0 === x1 && y0 === y1) break;
+
+            let e2 = 2 * err
+
+            // Ajuste en el eje X
+            if (e2 > -dy) {
+                err -= dy
+                x0 += sx
+            }
+
+            // Ajuste en el eje Y
+            if (e2 < dx) {
+                err += dx
+                y0 += sy
+            }
+        }
+    }
+
 
 /**
  * Calcula los vértices de un polígono regular.
@@ -33,4 +64,9 @@ function bresenhamLine(x0, y0, x1, y1, color) {
  */
 function getPolygonVertices(centerX, centerY, sides, radius) {
     // Desarrollo del estudiante (Uso de Math.sin/Math.cos y retorno de datos)
+}
+function aleatorio() {
+    sides = Math.floor(Math.random() * 10) + 1
+    console.log(sides)
+    return (sides)
 }
