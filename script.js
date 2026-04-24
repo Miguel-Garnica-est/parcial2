@@ -27,13 +27,10 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
     let sx = (x0 < x1) ? 1 : -1
     let sy = (y0 < y1) ? 1 : -1
     let err = dx - dy
+    // Dibujar el punto actual
+    drawPixel(ctx, x0, y0, color)
 
-    
      while (true) {
-            // Dibujar el punto actual
-            drawPixel(ctx, x0, y0, color)
-            
-            
 
             // Condición de finalización
             if (x0 === x1 && y0 === y1) break;
@@ -51,6 +48,7 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
                 err += dx
                 y0 += sy
             }
+            drawPixel(ctx, x0, y0, color)
         }
     }
 
@@ -79,14 +77,49 @@ function getPolygonVertices(centerX, centerY, sides, radius) {
 function inicio() {
     const centerX = 250
     const centerY = 250
-    const sides = Math.floor(Math.random() * 10) + 1
+    const sides = Math.floor(Math.random() * 6) + 5
     const radius = 150
+    const circleRadius = radius / 4
     console.log(sides)
     const vertices = getPolygonVertices(centerX, centerY, sides, radius);
+    vertices.forEach(vertex => {  
+        midpointCircle(vertex.x, vertex.y, circleRadius);
+    })
+    
     // Dibuja lineas del polígono (negro)
     for (let i = 0; i < sides; i++) {
         const j = (i + 1) % sides
         bresenhamLine(vertices[i].x, vertices[i].y, vertices[j].x, vertices[j].y);
     }
     
+    
+}
+window.onload = inicio
+function midpointCircle(cx, cy, r, color = "#FF0000") {
+    let x = 0;
+    let y = r;
+    let p = 5/4 - r; // p0: f(0.5, r-0.5) ≈ 5/4 - r para x^2 + y^2 = r^2
+
+    function plotSym(x, y) {
+        drawPixel(ctx, cx + x, cy + y, color);
+        drawPixel(ctx, cx - x, cy + y, color);
+        drawPixel(ctx, cx + x, cy - y, color);
+        drawPixel(ctx, cx - x, cy - y, color);
+        drawPixel(ctx, cx + y, cy + x, color);
+        drawPixel(ctx, cx - y, cy + x, color);
+        drawPixel(ctx, cx + y, cy - x, color);
+        drawPixel(ctx, cx - y, cy - x, color);
+    }
+    plotSym(x, y);
+
+    while (x < y) {
+        x++;
+        if (p < 0) {
+            p += 2 * x + 1; // Caso E: punto medio dentro del círculo
+        } else {
+            y--;
+            p += 2 * (x - y) + 1; // Caso SE: punto medio fuera
+        }
+        plotSym(x, y);
+    }
 }
