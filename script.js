@@ -65,6 +65,16 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
  */
 function getPolygonVertices(centerX, centerY, sides, radius) {
     // Desarrollo del estudiante (Uso de Math.sin/Math.cos y retorno de datos)
+    let vertices = []
+    for (let i = 0; i < sides; i++) {
+        let angle = (2 * Math.PI * i) / sides - Math.PI / 2 // Comienza en (0,-r)
+        vertices.push({
+            x: centerX + radius * Math.cos(angle),
+            y: centerY + radius * Math.sin(angle)
+        })
+    }
+    return vertices
+
 }
 function inicio() {
     const centerX = 250
@@ -72,5 +82,11 @@ function inicio() {
     const sides = Math.floor(Math.random() * 10) + 1
     const radius = 150
     console.log(sides)
+    const vertices = getPolygonVertices(centerX, centerY, sides, radius);
+    // Dibuja lineas del polígono (negro)
+    for (let i = 0; i < sides; i++) {
+        const j = (i + 1) % sides
+        bresenhamLine(vertices[i].x, vertices[i].y, vertices[j].x, vertices[j].y);
+    }
     
 }
