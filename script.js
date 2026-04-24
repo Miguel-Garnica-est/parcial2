@@ -5,6 +5,9 @@
  * * Tarea: Implementar los algoritmos de rasterización manual.
  */
 
+const canvas = document.getElementById("canvas")// canvas
+const ctx = canvas.getContext("2d") // canvas con el contexto en 2d
+
 // Función de apoyo para dibujar un píxel individual
 function drawPixel(ctx, x, y, color = "#000000") {
     ctx.fillStyle = color;
